@@ -16,9 +16,8 @@ const boardCreation=function(){
 };
 boardCreation();
 const snake = {
-    head: [20, 1],
+    head: [15, 16],
 
 };
-console.log(document.querySelector(`.tr-${snake.head[0]}`));
-document.querySelector(`.td-${snake.head[0]}`).classList.add(`taken`);
 
+document.getElementById('game').rows[snake.head[0]].cells[snake.head[1]].classList.add('taken');
