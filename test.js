@@ -63,6 +63,7 @@ document.addEventListener('keydown', function (e) {
 
             snake.moveDown();
     }else{
+        //crossed boundary. maybe do something else so player can't play anymore
         console.warn('game over');
         snake.head=[size+1,size+1];
     }
