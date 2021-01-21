@@ -12,59 +12,76 @@ const boardCreation = function (size) {
         }
     };
 };
-const size=30
+const size = 30
 boardCreation(size);
 const snake = {
     head: [15, 16],
-    //movements left and right need to be cleaned up. a lot of rewritten code
-    
+    //movements left and right need to be cleaned up. not DRY
+
     moveLeft() {
-        document.getElementById('game').rows[snake.head[0]].cells[snake.head[1] - 1].classList.add('taken');
-        document.getElementById('game').rows[snake.head[0]].cells[snake.head[1] ].classList.remove('taken');
-        snake.head[1] -= 1;
-    },
-    moveRight(){
-        document.getElementById('game').rows[snake.head[0]].cells[snake.head[1] + 1].classList.add('taken');
-        document.getElementById('game').rows[snake.head[0]].cells[snake.head[1] ].classList.remove('taken');
-        snake.head[1] += 1;
-    },
-    moveUp(){
-        document.getElementById('game').rows[snake.head[0]-1].cells[snake.head[1]].classList.add('taken');
-        document.getElementById('game').rows[snake.head[0]].cells[snake.head[1] ].classList.remove('taken');
+        document.getElementById('game').rows[this.head[1]].cells[this.head[0] - 1].classList.add('taken');
+        document.getElementById('game').rows[this.head[1]].cells[this.head[0]].classList.remove('taken');
         snake.head[0] -= 1;
     },
-    moveDown(){
-        document.getElementById('game').rows[snake.head[0]+1].cells[snake.head[1]].classList.add('taken');
-        document.getElementById('game').rows[snake.head[0]].cells[snake.head[1] ].classList.remove('taken');
+    moveRight() {
+        document.getElementById('game').rows[this.head[1]].cells[this.head[0] + 1].classList.add('taken');
+        document.getElementById('game').rows[this.head[1]].cells[this.head[0]].classList.remove('taken');
         snake.head[0] += 1;
+    },
+    moveUp() {
+        document.getElementById('game').rows[this.head[1] - 1].cells[this.head[0]].classList.add('taken');
+        document.getElementById('game').rows[this.head[1]].cells[this.head[0]].classList.remove('taken');
+        snake.head[1] -= 1;
+    },
+    moveDown() {
+        document.getElementById('game').rows[this.head[1] + 1].cells[this.head[0]].classList.add('taken');
+        document.getElementById('game').rows[this.head[1]].cells[this.head[0]].classList.remove('taken');
+        snake.head[1] += 1;
     }
 };
 //move snake.head around
-document.getElementById('game').rows[snake.head[0]].cells[snake.head[1]].classList.add('taken');
-document.addEventListener('keydown', function (e) {
+const movement = (e) => {
     // console.log(e);
-   
-    //move snake.head left
-    if (e.key === 'ArrowLeft'&&snake.head[1]>0) {
+    let [x, y] = snake.head;
+    //move snake.head
+    if (e.key === 'ArrowLeft' && x > 0) {
         snake.moveLeft();
-        console.log(snake.head);
-        //     document.getElementById('game').rows[snake.head[0]].cells[snake.head[1]-1].classList.add('taken');
-    //     snake.head[1]-=1;
-    }else if(e.key==='ArrowRight'&&snake.head[1]<size-1){
-        console.log(snake.head);
-
+    } else if (e.key === 'ArrowRight' && x < size - 1) {
         snake.moveRight();
-    }else if(e.key==='ArrowUp'&&snake.head[0]>0){
-            console.log(snake.head);
-
-            snake.moveUp();
-    }else if(e.key==='ArrowDown'&&snake.head[0]<size-1){
-            console.log(snake.head);
-
-            snake.moveDown();
-    }else{
+    } else if (e.key === 'ArrowUp' && y > 0) {
+        snake.moveUp();
+    } else if (e.key === 'ArrowDown' && y < size - 1) {
+        snake.moveDown();
+    } else {
         //crossed boundary. maybe do something else so player can't play anymore
         console.warn('game over');
-        snake.head=[size+1,size+1];
+        snake.head = [size + 1, size + 1];
     }
-});
+    console.log(x, y);
+}
+
+const fruit = {
+    placement: [],
+
+    placefruit() {
+        for (let i = 0; i < 2; i++) {
+            let position = Math.random() * size - 1;
+            if (position >= 0 || position <= size-1) {
+                this.placement.push(Math.trunc(position))
+            } else {
+                i--
+            };
+        }
+    }
+
+};
+fruit.placefruit();
+console.log(fruit.placement);
+
+
+
+
+
+
+
+document.addEventListener('keydown', movement);
