@@ -15,53 +15,64 @@ const boardCreation = function (size) {
 const size = 30
 boardCreation(size);
 const snake = {
-    head: [15, 16],
-    //movements left and right need to be cleaned up. not DRY
+    body: [15,16],
+    
+    //need to set snake to move in direction after 1 second
+    move(dirx,diry,xy,dir){
+        setTimeout(function(){document.getElementById('game').rows[this.body[1]+diry].cells[this.body[0] + dirx].classList.add('taken');
+    document.getElementById('game').rows[this.body[1]].cells[this.body[0]].classList.remove('taken');
+       snake.body[dir] += xy;},2000);
+//        document.getElementById('game').rows[this.body[1]+diry].cells[this.body[0] + dirx].classList.add('taken');
+//    document.getElementById('game').rows[this.body[1]].cells[this.body[0]].classList.remove('taken');
+//       snake.body[dir] += xy;
+    },
 
-    moveLeft() {
-        document.getElementById('game').rows[this.head[1]].cells[this.head[0] - 1].classList.add('taken');
-        document.getElementById('game').rows[this.head[1]].cells[this.head[0]].classList.remove('taken');
-        snake.head[0] -= 1;
-    },
-    moveRight() {
-        document.getElementById('game').rows[this.head[1]].cells[this.head[0] + 1].classList.add('taken');
-        document.getElementById('game').rows[this.head[1]].cells[this.head[0]].classList.remove('taken');
-        snake.head[0] += 1;
-    },
-    moveUp() {
-        document.getElementById('game').rows[this.head[1] - 1].cells[this.head[0]].classList.add('taken');
-        document.getElementById('game').rows[this.head[1]].cells[this.head[0]].classList.remove('taken');
-        snake.head[1] -= 1;
-    },
-    moveDown() {
-        document.getElementById('game').rows[this.head[1] + 1].cells[this.head[0]].classList.add('taken');
-        document.getElementById('game').rows[this.head[1]].cells[this.head[0]].classList.remove('taken');
-        snake.head[1] += 1;
-    }
+//    moveLeft() {
+//        document.getElementById('game').rows[this.body[1]].cells[this.body[0] - 1].classList.add('taken');
+//        document.getElementById('game').rows[this.body[1]].cells[this.body[0]].classList.remove('taken');
+//        snake.body[0] -= 1;
+//    },
+//    moveRight() {
+//        document.getElementById('game').rows[this.body[1]].cells[this.body[0] + 1].classList.add('taken');
+//        document.getElementById('game').rows[this.body[1]].cells[this.body[0]].classList.remove('taken');
+//        snake.body[0] += 1;
+//    },
+//    moveUp() {
+//        document.getElementById('game').rows[this.body[1] - 1].cells[this.body[0]].classList.add('taken');
+//        document.getElementById('game').rows[this.body[1]].cells[this.body[0]].classList.remove('taken');
+//        snake.body[1] -= 1;
+//    },
+//    moveDown() {
+//        document.getElementById('game').rows[this.body[1] + 1].cells[this.body[0]].classList.add('taken');
+//        document.getElementById('game').rows[this.body[1]].cells[this.body[0]].classList.remove('taken');
+//        snake.body[1] += 1;
+//    }
 };
-//move snake.head around
+//move snake.body around
 const movement = (e) => {
     // console.log(e);
-    let [x, y] = snake.head;
-    //move snake.head
+    let [x, y] = snake.body;
+    //move snake.body
     if (e.key === 'ArrowLeft' && x > 0) {
-        snake.moveLeft();
+        snake.move(-1,0,-1,0);
     } else if (e.key === 'ArrowRight' && x < size - 1) {
-        snake.moveRight();
+        snake.move(1,0,1,0);
     } else if (e.key === 'ArrowUp' && y > 0) {
-        snake.moveUp();
+        snake.move(0,-1,-1,1);
     } else if (e.key === 'ArrowDown' && y < size - 1) {
-        snake.moveDown();
+        snake.move(0,1,1,1);
     } else {
         //crossed boundary. maybe do something else so player can't play anymore
         console.warn('game over');
-        snake.head = [size + 1, size + 1];
+        snake.body = [size + 1, size + 1];
+//        document.getElementById('game').style='display:none';
+        document.removeEventListener();
     }
     console.log(x, y);
 }
 
 const fruit = {
-    placement: [],
+    placement: [2,2],
 
     placefruit() {
         for (let i = 0; i < 2; i++) {
@@ -84,10 +95,14 @@ const fruit = {
 };
 
 
+//if(fruit.placement===[2,2]){
+//    console.log(`fruit picked up`);
+//}
+fruit.placement.forEach((cur,i)=>{
+    console.log(snake.body[i]===fruit.placement[i]);
+});
+//const add body
 
-
-
-
-
+//console.log(snake.body[0][1]);
 
 document.addEventListener('keydown', movement);
