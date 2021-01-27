@@ -19,9 +19,9 @@ const snake = {
     
     //need to set snake to move in direction after 1 second
     move(dirx,diry,xy,dir){
-        setTimeout(function(){document.getElementById('game').rows[this.body[1]+diry].cells[this.body[0] + dirx].classList.add('taken');
+        document.getElementById('game').rows[this.body[1]+diry].cells[this.body[0] + dirx].classList.add('taken');
     document.getElementById('game').rows[this.body[1]].cells[this.body[0]].classList.remove('taken');
-       snake.body[dir] += xy;},2000);
+       snake.body[dir] += xy;
 //        document.getElementById('game').rows[this.body[1]+diry].cells[this.body[0] + dirx].classList.add('taken');
 //    document.getElementById('game').rows[this.body[1]].cells[this.body[0]].classList.remove('taken');
 //       snake.body[dir] += xy;
@@ -54,7 +54,7 @@ const movement = (e) => {
     let [x, y] = snake.body;
     //move snake.body
     if (e.key === 'ArrowLeft' && x > 0) {
-        snake.move(-1,0,-1,0);
+        setTimeout(snake.move(-1,0,-1,0),1000);
     } else if (e.key === 'ArrowRight' && x < size - 1) {
         snake.move(1,0,1,0);
     } else if (e.key === 'ArrowUp' && y > 0) {
