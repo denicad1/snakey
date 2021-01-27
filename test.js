@@ -67,16 +67,22 @@ const fruit = {
         for (let i = 0; i < 2; i++) {
             let position = Math.random() * size - 1;
             if (position >= 0 || position <= size-1) {
-                this.placement.push(Math.trunc(position))
+                this.placement.push(Math.trunc(position));
             } else {
                 i--
             };
         }
+        document.getElementById('game').rows[this.placement[0]].cells[this.placement[1]].classList.add('fruit');
+
+    },
+    fruitTaken(){
+        this.placement=[];
+        this.placefruit();
     }
 
+
 };
-fruit.placefruit();
-console.log(fruit.placement);
+
 
 
 
