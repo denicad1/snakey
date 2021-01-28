@@ -19,6 +19,7 @@ const snake = {
     
     //need to set snake to move in direction after 1 second
     move(dirx,diry,xy,dir){
+        //setTimeout ????
         document.getElementById('game').rows[this.body[1]+diry].cells[this.body[0] + dirx].classList.add('taken');
     document.getElementById('game').rows[this.body[1]].cells[this.body[0]].classList.remove('taken');
        snake.body[dir] += xy;
