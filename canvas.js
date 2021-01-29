@@ -12,9 +12,7 @@ const drawSnakePart=(snakePart)=>{
 const drawSnake=()=>snake.forEach(drawSnakePart);
 drawSnake();
 
-const moveSnake=()=>{
-    
-}
+
 
 const moveSnake=()=>{
     const head={x:snake[0].x+dx,y:snake[0].y};
@@ -27,5 +25,7 @@ document.addEventListener('keydown',function(e){
     const right=39;
     const up=38;
     const down=40;
+    const keypressed=e.keyCode;
+    
     
 })
