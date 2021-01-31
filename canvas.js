@@ -1,6 +1,6 @@
 const canvas=document.getElementById('game');
 const ctx=canvas.getContext('2d');
-let dx=10;
+let dx=-10;
 let dy=0;
 
 const clearBoard=()=>{
@@ -10,7 +10,7 @@ ctx.fillRect(0,0,400,400);
 clearBoard();
 const snake=[{x:200,y:200},{x:190,y:200},{x:180,y:200},{x:170,y:200},{x:160,y:200}];
 const move=()=>{
-    setInterval(function(){
+    setTimeout(function(){
         clearBoard();
         moveSnake();
         drawSnake();
