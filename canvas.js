@@ -11,7 +11,7 @@ clearBoard();
 const snake=[{x:200,y:200},{x:190,y:200},{x:180,y:200},{x:170,y:200},{x:160,y:200}];
 const collision=()=>{
     for (let i = 4; i< snake.length; i++) {
-        if(snake[i].x===snake[0].x||snake[i].y===snake[0].y){
+        if(snake[i].x===snake[0].x&&snake[i].y===snake[0].y){
             return true;
         }
     }
