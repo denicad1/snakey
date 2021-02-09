@@ -82,6 +82,34 @@ const moveSnake = () => {
 
 }
 
+const fruit={
+    place:[],
+    placement(){
+        for(let i=0;i>2;i++){
+            this.place.push(Math.round(Math.random()*canvas.height-10));
+        }
+    },
+    draw(){
+        ctx.fillStyle='red';
+        ctx.strokeStyle='darkred';
+        ctx.fillRect(this.place[0],this.place[1],10,10);
+        ctx.strokeRect(this.place[0],this.place[1],10,10);
+        
+    }
+    grow(){
+        
+    },
+    eaten(snake){
+        snake.forEach(function(cur){
+            if(cur.x===this.place[0]&&cur.y===this.place[1]){
+                this.place=[];
+                this.placement();
+                this.draw();
+            }
+        })
+    },
+    
+}
 
 document.addEventListener('keydown', function (e) {
     let moving='';
